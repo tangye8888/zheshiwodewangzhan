@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到唐智赋的个人网站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
+        <!-- 欢迎界面 -->
+        <div id="welcome" class="text-center fade-in">
+            <h1 class="text-3xl font-bold mb-6">👋 欢迎来到我的个人空间</h1>
+            <p class="text-gray-600 mb-8">
+                这里是我分享生活点滴和技术学习的地方。
+                我会不定期更新生活故事、学习心得和有趣的经历，
+                希望能和大家一起分享、一起成长！
+            </p>
+            <button onclick="startQuestions()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                开始互动
+            </button>
+        </div>
+
+        <!-- 问题 1：身份询问 -->
+        <div id="question1" class="question-container">
+            <h2 class="text-2xl font-bold mb-4">你是我身边的什么人呢？</h2>
+            <div class="space-y-3">
+                <button onclick="answerQuestion(1, '同学')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    同学
+                </button>
+                <button onclick="answerQuestion(1, '朋友')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    朋友
+                </button>
+                <button onclick="answerQuestion(1, '家人')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    家人
+                </button>0
+                .
+                <button onclick="answerQuestion(1, '路过的朋友')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    路过的朋友
+                </button>
+            </div>
+        </div>
+
+        <!-- 问题 1.1：同学时期询问 -->
+        <div id="question1_1" class="question-container">
+            <h2 class="text-2xl font-bold mb-4">是哪个时期的同学呢？</h2>
+            <div class="space-y-3">
+                <button onclick="answerQuestion(1.1, '小学')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    小学同学
+                </button>
+                <button onclick="answerQuestion(1.1, '初中')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    初中同学
+                </button>
+                <button onclick="answerQuestion(1.1, '高中')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    高中同学
+                </button>
+                <button onclick="answerQuestion(1.1, '大学')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    大学同学
+                </button>
+            </div>
+        </div>
+
+        <!-- 问题 2 -->
+        <div id="question2" class="question-container">
+            <h2 class="text-2xl font-bold mb-4">你最想了解我的哪些内容？</h2>
+            <div class="space-y-3">
+                <button onclick="answerQuestion(2, '生活分享')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    日常生活分享
+                </button>
+                <button onclick="answerQuestion(2, '技术学习')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    HTML/JSX学习心得
+                </button>
+                <button onclick="answerQuestion(2, '旅行记录')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    旅行记录
+                </button>
+                <button onclick="answerQuestion(2, '摄影作品')" class="w-full text-left p-3 rounded bg-gray-100 hover:bg-gray-200">
+                    摄影作品
+                </button>
+            </div>
+        </div>
+
+        <!-- 最终欢迎界面 -->
+        <div id="final" class="question-container text-center">
+            <h2 class="text-2xl font-bold mb-4">很高兴认识你！</h2>
+            <p class="text-gray-600 mb-6">
+                这是我的个人空间，我会在这里不定期更新生活点滴和技术学习的收获。
+                你可以看到我的旅行故事、生活感悟，以及我在学习HTML和JSX过程中的心得体会。
+                希望我们能一起交流、一起进步！
+            </p>
+            <a href="index.html" class="inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                进入我的空间
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function startQuestions() {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('question1').classList.add('active', 'fade-in');
+        }
+
+        function answerQuestion(questionNum, answer) {
+            // 保存答案
+            localStorage.setItem(`question${questionNum}`, answer);
+            
+            // 隐藏当前问题
+            if (questionNum === 1) {
+                document.getElementById('question1').classList.remove('active');
+                // 如果回答是"同学"，显示同学时期问题
+                if (answer === '同学') {
+                    document.getElementById('question1_1').classList.add('active', 'fade-in');
+                    return;
+                }
+            } else if (questionNum === 1.1) {
+                document.getElementById('question1_1').classList.remove('active');
+            } else {
+                document.getElementById(`question${questionNum}`).classList.remove('active');
+            }
+            
+            // 显示下一个问题或最终页面
+            if (questionNum === 1 && answer !== '同学') {
+                document.getElementById('question2').classList.add('active', 'fade-in');
+            } else if (questionNum === 1.1) {
+                document.getElementById('question2').classList.add('active', 'fade-in');
+            } else if (questionNum === 2) {
+                document.getElementById('final').classList.add('active', 'fade-in');
+            }
+        }
+    </script>
+</body>
+</html> 
